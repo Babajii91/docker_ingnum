@@ -10,4 +10,9 @@ public class BonjourController {
     public String bonjour() {
         return "bonjour";
     }
+
+    @GetMapping("/")
+    public String home() {
+        return "RentalService fonctionne !";
+    }
 }
