@@ -1,8 +1,10 @@
-# Utiliser l'image officielle PHP 8.0 avec Apache
 FROM php:8.2-apache
 
-# Copier ton code PHP dans le dossier web du conteneur
-COPY index.php /var/www/html/
+RUN a2enmod rewrite
 
-# Exposer le port 80
+COPY index.php /var/www/html/
+COPY .htaccess /var/www/html/
+
+RUN sed -i 's/AllowOverride None/AllowOverride All/' /etc/apache2/apache2.conf
+
 EXPOSE 80

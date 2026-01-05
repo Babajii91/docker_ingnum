@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  rentalservice:
+    build: ./RentalService
+    ports:
+      - "8080:8080"
+    networks:
+      - appnet
+
+  phpservice:
+    build: ./Php_service
+    ports:
+      - "8081:80"
+    networks:
+      - appnet
+
+networks:
+  appnet:

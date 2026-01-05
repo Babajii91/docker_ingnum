@@ -1,27 +1,35 @@
 package com.ingnum.rentalservice.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @RestController
 public class BonjourController {
 
-    @GetMapping("/bonjour")
-    public String bonjour() {
-        return "bonjour";
-    }
+    private static final Logger logger = LoggerFactory.getLogger(BonjourController.class);
+
+    @Value("${customer.service.url}")
+    private String customerServiceUrl;
 
     @GetMapping("/")
     public String home() {
         return "RentalService fonctionne !";
     }
 
-    @GetMapping("/call-php")
-    public String callPhpService() {
+    @GetMapping("/bonjour")
+    public String bonjourSimple() {
+        return "bonjour";
+    }
+
+    @GetMapping("/customer/{name}")
+    public String bonjour(@PathVariable String name) {
         RestTemplate restTemplate = new RestTemplate();
-        // On utilise le nom du service défini dans docker-compose.yml
-        String response = restTemplate.getForObject("http://phpservice:80", String.class);
-        return "Réponse du service PHP : " + response;
+        String url = customerServiceUrl + "/customers/" + name + "/address";
+        logger.info("Requesting URL: " + url);
+        String response = restTemplate.getForObject(url, String.class);
+        return response;
     }
 }
