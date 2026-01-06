@@ -1,4 +1,4 @@
-# PhpService – Microservice PHP avec Docker
+# TP2  PhpService – Microservice PHP et Java avec Docker
 
 ---
 
@@ -41,3 +41,69 @@ Affichage de la réponse à `http://localhost:8080/customer/Johary`.
 
 ---
 
+# TP3 Déploiement d’un microservice PHP dans Kubernetes (Minikube)
+
+# Créer un déploiement Kubernetes à partir d'une image Docker
+
+# Après installation de minikube lancer minikube
+
+```bash
+minikube start
+```
+
+# Vérification des pods
+
+```bash
+kubectl get pods
+
+```
+![Vérification des pods](../images/kubernetes_get_pods.png)
+
+
+# Description du pods
+
+```bash
+kubectl describe pods
+```
+
+![Description du pods](../images/kubernetes_describe_pods.png)
+
+
+# Entrer dans le conteneur
+
+```bash
+kubectl exec -it phpservice-xxxxx -- /bin/bash
+ls
+exit
+```
+![Entrer dans le conteneur](../images/kubernetes_exec.png)
+
+
+# Exposition du service
+
+```bash
+kubectl expose deployment phpservice --type=NodePort --port=80
+```
+![Exposition du service](../images/kubernetes_deploiement.png)
+
+
+# Exposition du service
+
+```bash
+minikube service phpservice --url
+```
+![Exposition du service](../images/kubernetes_url.png)
+
+
+# TEST du service
+
+```bash
+http://127.0.0.1:xxxxx
+```
+
+```bash
+http://127.0.0.1:xxxxx/customers/Johary/address
+```
+![TEST du service Php](../images/kubernetes_url_php.png)
+
+![TEST du service Php adresse](../images/kubernetes_url_php_customer.png)
