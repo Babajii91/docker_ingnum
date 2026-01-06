@@ -154,7 +154,7 @@ docker build -t johary94/phpservice:2 .
 ```bash
 docker push johary94/phpservice:2
 ```
-![l’URL Minikube](../images/kubernetes_img2_push.png)
+![Push sur Docker Hub](../images/kubernetes_img2_push.png)
 
 # Rolling update dans Kubernetes
 
@@ -163,13 +163,74 @@ kubectl set image deployment/phpservice phpservice=johary94/phpservice:2
 kubectl rollout status deployment/phpservice
 ```
 
-![l’URL Minikube](../images/kubernetes_rolling_deploiment.png)
+![Rolling update](../images/kubernetes_rolling_deploiment.png)
 
 # TEST dans le navigateur 
 
 ```bash
 minikube service phpservice --url
 ```
-![l’URL Minikube](../images/kubernetes_phpservice_version2.png)
+![TEST](../images/kubernetes_phpservice_version2.png)
+
+# Partie 5 : Création un déploiement et un service à l'aide d'un fichier YAML
 
 
+## création des trois fichiers yml
+
+phpservice-deployment.yml
+
+phpservice-loadbalancing-service.yml
+
+phpservice-service.yml
+
+## Application du déploiement
+
+```bash
+kubectl apply -f phpservice-deployment.yml
+```
+
+![déploiement service](../images/kubernetes_apply.png)
+
+
+### vérification :
+
+```bash
+kubectl get deployments
+```
+
+```bash
+kubectl get pods
+```
+![vérification](../images/kubernetes_verification.png)
+
+
+## Application du service NodePort
+
+```bash
+kubectl apply -f phpservice-service.yml
+```
+
+![service NodePort](../images/kubernetes_nodeport.png)
+
+
+## Application du LoadBalancer
+
+```bash
+kubectl apply -f phpservice-loadbalancing-service.yml
+```
+
+![LoadBalancer](../images/kubernetes_load.png)
+
+
+# TEST dans le navigateur 
+
+![TEST](../images/test.png)
+
+
+![TEST](../images/test2.png)
+
+
+![TEST](../images/test3.png)
+
+
+Mon GITHUB : https://github.com/Babajii91/docker_ingnum
