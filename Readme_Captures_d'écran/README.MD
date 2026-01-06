@@ -43,7 +43,7 @@ Affichage de la réponse à `http://localhost:8080/customer/Johary`.
 
 # TP3 Déploiement d’un microservice PHP dans Kubernetes (Minikube)
 
-# Créer un déploiement Kubernetes à partir d'une image Docker
+# Partie 1 : Créer un déploiement Kubernetes à partir d'une image Docker
 
 # Après installation de minikube lancer minikube
 
@@ -107,3 +107,69 @@ http://127.0.0.1:xxxxx/customers/Johary/address
 ![TEST du service Php](../images/kubernetes_url_php.png)
 
 ![TEST du service Php adresse](../images/kubernetes_url_php_customer.png)
+
+
+# Partie 2 : Scaling 
+
+![Scaling](../images/kubernetes_scaling.png)
+
+![Scaling](../images/kubernetes_get_services.png)
+
+
+
+# Partie 3 : Création d'un service de type LoadBalancer
+
+# creation du service LoadBalncer
+
+![service LoadBalncer](../images/kubernetes_balancer.png)
+
+# Récupérer l’URL Minikube
+
+```bash
+minikube service phpservice --url
+```
+![l’URL Minikube](../images/kubernetes_url2.png)
+
+![l’URL Minikube](../images/kubernetes_url_adrese_2.png)
+
+
+
+# Partie 4 : Rolling Updates
+
+## modification du code dans index.php
+
+```bash
+echo "Service PHP opérationnel — VERSION 2";
+```
+
+# Rebuild l’image version 2
+
+```bash
+docker build -t johary94/phpservice:2 .
+```
+![Rebuild l’image version 2](../images/kubernetes_img2.png)
+
+# Push sur Docker Hub
+
+```bash
+docker push johary94/phpservice:2
+```
+![l’URL Minikube](../images/kubernetes_img2_push.png)
+
+# Rolling update dans Kubernetes
+
+```bash
+kubectl set image deployment/phpservice phpservice=johary94/phpservice:2
+kubectl rollout status deployment/phpservice
+```
+
+![l’URL Minikube](../images/kubernetes_rolling_deploiment.png)
+
+# TEST dans le navigateur 
+
+```bash
+minikube service phpservice --url
+```
+![l’URL Minikube](../images/kubernetes_phpservice_version2.png)
+
+

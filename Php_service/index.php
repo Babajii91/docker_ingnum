@@ -9,5 +9,5 @@ if (preg_match('#^/customers/([^/]+)/address$#', $requestUri, $matches)) {
     exit;
 }
 
-echo "Service PHP opérationnel";
+echo "Service PHP opérationnel — VERSION 2";
 ?>
