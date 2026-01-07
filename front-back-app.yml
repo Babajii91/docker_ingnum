@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rentalservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rentalservice
+  template:
+    metadata:
+      labels:
+        app: rentalservice
+    spec:
+      containers:
+      - name: rentalservice
+        image: johary94/rentalservice:1
+        ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rentalservice
+spec:
+  type: ClusterIP
+  selector:
+    app: rentalservice
+  ports:
+    - port: 8080
+      targetPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: phpservice
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: phpservice
+  template:
+    metadata:
+      labels:
+        app: phpservice
+    spec:
+      containers:
+      - name: phpservice
+        image: johary94/phpservice:2
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: phpservice
+spec:
+  type: LoadBalancer
+  selector:
+    app: phpservice
+  ports:
+    - port: 80
+      targetPort: 80
