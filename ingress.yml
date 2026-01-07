@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: microservices-ingress
+spec:
+  rules:
+  - host: localhost
+    http:
+      paths:
+      - path: /php
+        pathType: Prefix
+        backend:
+          service:
+            name: phpservice
+            port:
+              number: 80
+
+      - path: /java
+        pathType: Prefix
+        backend:
+          service:
+            name: rentalservice
+            port:
+              number: 8080

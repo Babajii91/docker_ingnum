@@ -234,3 +234,42 @@ kubectl apply -f phpservice-loadbalancing-service.yml
 
 
 Mon GITHUB : https://github.com/Babajii91/docker_ingnum
+
+# Partie 6 : Configurer Ingress sur Minikube avec le contrôleur NGINX Ingress
+
+## Activez le contrôleur NGINX Ingress :
+
+![Activation contrôleur NGINX Ingress](../images/minikubes_addons.png)
+
+## Vérifiez que le contrôleur NGINX Ingress est en cours d'exécution :
+
+![Vérification pour NGINX Ingress](../images/ingress_nginx.png)
+
+## déploiement et l'exposer en tant que NodePort
+
+![Nodeport](../images/ingress.yml.png)
+
+## Récupérer l'adresse IP d'Ingress :
+
+![Adresse IP d'Ingress](../images/get_ingress.png)
+
+## On Windows : 
+
+### Modification du ficher hosts
+
+![Modification du ficher hosts](../images/hosts.png)
+
+### Activer un tunnel pour Minikube :
+
+![Minikube dns](../images/minikube_addons_dns.png)
+
+![Minikube tunnel](../images/minikube_tunnel.png)
+
+#### Test :
+
+![TEST](../images/myservice-info.png)
+
+![TEST](../images/myservice-php.png)
+
+![TEST](../images/myservice-java.png)
+
